@@ -1,0 +1,26 @@
+.grid-container {
+  border: 2px solid #634B66;
+  padding: 10px 0;
+  background: #ADC698;
+  border-radius: 2px;
+}
+
+.grid-row {
+  margin: 0 10px;
+}
+
+.grid-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.grid-box {
+  width: 50px;
+  height: 40px;
+  float: left;
+  border: 1px solid #634B66;
+  border-radius: 2px;
+  background: #E5FFDE;
+  margin: 3px;
+}
