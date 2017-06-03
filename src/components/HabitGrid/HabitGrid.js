@@ -1,35 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import GridRow from './GridRow';
 import './HabitGrid.css';
 
-class HabitGrid extends Component {
-  constructor(props) {
-    super()
-    this.state = {
-      rows: [
-        [true, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false]
-      ]
-    }
-  }
-  render () {
-    return (
-      <div className="grid-container">
-        <GridRow row={this.state.rows[0]} />
-        <GridRow row={this.state.rows[1]} />
-        <GridRow row={this.state.rows[2]} />
-        <GridRow row={this.state.rows[3]} />
-        <GridRow row={this.state.rows[4]} />
-        <GridRow row={this.state.rows[5]} />
-        <GridRow row={this.state.rows[6]} />
-      </div>
-    )
-  }
+const HabitGrid = (props) => {
+  return (
+    <div className="grid-container">
+      <GridRow rowId="0" />
+      <GridRow rowId="1" />
+      <GridRow rowId="2" />
+      <GridRow rowId="3" />
+      <GridRow rowId="4" />
+      <GridRow rowId="5" />
+      <GridRow rowId="6" />
+    </div>
+  )
 }
 
 export default HabitGrid;
