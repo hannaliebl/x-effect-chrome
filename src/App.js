@@ -14,10 +14,17 @@ class App extends Component {
     event.preventDefault()
     this.setState({isHabitCreated: true})
   }
+  handleHabitDelete = () => {
+    if (window.confirm('Are you sure you want to delete this habit and start over?')) {
+      this.setState({isHabitCreated: false})
+    }
+  }
   render() {
     return (
       <div className="container">
-        <HabitBuilder isHabitCreated={this.state.isHabitCreated} onCreate={this.handleHabitCreated} />
+        <HabitBuilder isHabitCreated={this.state.isHabitCreated} 
+          onCreate={this.handleHabitCreated} 
+          onDelete={this.handleHabitDelete} />
         <HabitNotesList notes={["foo", "bar", "baz"]} />
       </div>
     );

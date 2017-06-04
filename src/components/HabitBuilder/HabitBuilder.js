@@ -29,6 +29,7 @@ class HabitBuilder extends Component {
         <div>
           <HabitTitle title={this.state.habitTitle} startDate={this.state.startDate} />
           <HabitGrid startDate={this.state.startDate}/>
+          <span onClick={this.props.onDelete}>Delete habit grid and start over</span>
         </div>
       )
     }
