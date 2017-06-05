@@ -22,8 +22,8 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <HabitBuilder isHabitCreated={this.state.isHabitCreated} 
-          onCreate={this.handleHabitCreated} 
+        <HabitBuilder isHabitCreated={this.state.isHabitCreated}
+          onCreate={this.handleHabitCreated}
           onDelete={this.handleHabitDelete} />
         <HabitNotesList notes={["foo", "bar", "baz"]} />
       </div>

@@ -5,13 +5,13 @@ import './HabitGrid.css';
 const HabitGrid = (props) => {
   return (
     <div className="grid-container">
-      <GridRow rowId="0" />
-      <GridRow rowId="1" />
-      <GridRow rowId="2" />
-      <GridRow rowId="3" />
-      <GridRow rowId="4" />
-      <GridRow rowId="5" />
-      <GridRow rowId="6" />
+      <GridRow rowId="0" startDate={props.startDate} />
+      <GridRow rowId="1" startDate={props.startDate} />
+      <GridRow rowId="2" startDate={props.startDate} />
+      <GridRow rowId="3" startDate={props.startDate} />
+      <GridRow rowId="4" startDate={props.startDate} />
+      <GridRow rowId="5" startDate={props.startDate} />
+      <GridRow rowId="6" startDate={props.startDate} />
     </div>
   )
 }

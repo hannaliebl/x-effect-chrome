@@ -38,10 +38,10 @@ class HabitBuilder extends Component {
         <label htmlFor="habitTitle">
           Title:
         </label>
-        <input type="text" 
+        <input type="text"
           name="habitTitle"
           id="habitTitle"
-          value={this.state.habitTitle} 
+          value={this.state.habitTitle}
           onChange={this.handleTitleChange} />
         <label htmlFor="today">
           <input type="radio"
