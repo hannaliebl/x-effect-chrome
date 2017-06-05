@@ -6,7 +6,8 @@ class Grid extends Component {
     super(props)
     this.state = {
       completed: false,
-      date: this.getDate()
+      date: this.getDate(),
+      isToday: false
     }
   }
   getDate = () => {
@@ -17,6 +18,12 @@ class Grid extends Component {
     }
     return startDate.add(buffer, 'days').format('MM/DD/YY')
   }
+  componentDidMount = () => {
+    const today = moment().format('YYYY-MM-DD')
+    const dateFormatted = moment(this.state.date, 'MM/DD/YY').format('YYYY-MM-DD')
+    const isToday = moment(dateFormatted).isSame(today, 'YYYY-MM-DD');
+    this.setState({isToday})
+  }
   handleClick = () => {
     let isCompleted = this.state.completed
     this.setState({completed: !isCompleted})
@@ -24,8 +31,9 @@ class Grid extends Component {
   render() {
     return (
       <div className="grid-box" onClick={this.handleClick}>
-        {this.state.date}
-        {(this.state.completed) && '✖' }
+        {(this.state.completed) && <div className="grid-x">✖</div> }
+        <div className="grid-date">{this.state.date}</div>
+        {(this.state.isToday) && 'today' }
       </div>
     )
   }

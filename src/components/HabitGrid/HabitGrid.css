@@ -23,4 +23,17 @@
   border-radius: 2px;
   background: #E5FFDE;
   margin: 3px;
+  position: relative;
+}
+
+.grid-date {
+  font-size: 11px;
+  position: absolute;
+  bottom: 0;
+  left: 3px;
+}
+
+.grid-x {
+  margin-left: 15px;
+  font-size: 28px;
 }
