@@ -7,7 +7,8 @@ class Grid extends Component {
     this.state = {
       completed: false,
       date: this.getDate(),
-      isToday: false
+      isToday: false,
+      isPast: false
     }
   }
   getDate = () => {
@@ -22,18 +23,31 @@ class Grid extends Component {
     const today = moment().format('YYYY-MM-DD')
     const dateFormatted = moment(this.state.date, 'MM/DD/YY').format('YYYY-MM-DD')
     const isToday = moment(dateFormatted).isSame(today, 'YYYY-MM-DD');
+    const isPast = moment(dateFormatted).isBefore(today, 'YYYY-MM-DD');
     this.setState({isToday})
+    this.setState({isPast})
   }
   handleClick = () => {
     let isCompleted = this.state.completed
     this.setState({completed: !isCompleted})
   }
   render() {
+    const clickHandleShow = this.state.isPast || this.state.isToday
+    let clickResult = null
+    if (clickHandleShow) {
+      clickResult = this.handleClick
+    } else {
+      clickResult = false
+    }
     return (
-      <div className="grid-box" onClick={this.handleClick}>
-        {(this.state.completed) && <div className="grid-x">✖</div> }
+      <div className={"grid-box " + (this.state.isToday ? 'is-today ' : '') + (this.state.isPast ? 'is-past ' : '') + (this.state.completed ? 'is-completed' : '')} onClick={clickResult}>
+        {(this.state.completed) &&
+          <div className="grid-x">
+            <svg viewBox="0 0 40 40">
+              <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
+            </svg>
+          </div> }
         <div className="grid-date">{this.state.date}</div>
-        {(this.state.isToday) && 'today' }
       </div>
     )
   }

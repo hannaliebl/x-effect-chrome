@@ -1,8 +1,9 @@
 .grid-container {
-  border: 2px solid #634B66;
+  /*border: 2px solid #634B66;*/
   padding: 10px 0;
-  background: #ADC698;
-  border-radius: 2px;
+  background: #45DDE0;
+  background: #fff;
+  border-radius: 4px;
 }
 
 .grid-row {
@@ -15,25 +16,58 @@
   clear: both;
 }
 
+/*future dates*/
 .grid-box {
-  width: 50px;
-  height: 40px;
+  width: 55px;
+  height: 50px;
   float: left;
-  border: 1px solid #634B66;
+  /*border: 1px solid #634B66;*/
   border-radius: 2px;
-  background: #E5FFDE;
+  background: #54DBDD;
   margin: 3px;
   position: relative;
+  color: #00989B;
+}
+
+.grid-box.is-today {
+  background: #00989B;
+  color: #54DBDD;
+  cursor: pointer;
+  /*border: 1px solid green;*/
+}
+
+/*past, not done*/
+.grid-box.is-past {
+  /*background: #F25F5C;*/
+  background: #F79D65;
+  color: #913E0B;
+  cursor: pointer;
+}
+
+/*past, completed*/
+.grid-box.is-past.is-completed {
+  background: #0DAB76;
+  color: #005E3E;
+  cursor: pointer;
 }
 
 .grid-date {
-  font-size: 11px;
+  font-size: 10.5px;
   position: absolute;
-  bottom: 0;
-  left: 3px;
+  bottom: -1px;
+  left: 6px;
+  font-weight: 400;
 }
 
 .grid-x {
-  margin-left: 15px;
-  font-size: 28px;
+  margin-top: -7px;
+  /*font-size: 28px;*/
+  stroke: #005E3E;
+  fill: transparent;
+  stroke-linecap: round;
+  stroke-width: 3;
+}
+
+.grid-box.is-today .grid-x {
+  stroke: #54DBDD;
 }

@@ -1,8 +1,12 @@
+* {
+  font-family: 'Nunito', sans-serif;
+}
 body {
-  background: #E5FFDE;
+  background: #0F7173;
+  color: #fff;
 }
 
 .container {
   margin: 30px auto;
-  width: 430px;
+  width: 450px;
 }
