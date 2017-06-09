@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import HabitBuilder from './components/HabitBuilder/HabitBuilder';
 import HabitNotesList from './components/HabitNotes/HabitNotesList';
+import ls from './util/localstorage';
 import './App.css';
 
 class App extends Component {
@@ -10,13 +11,19 @@ class App extends Component {
       isHabitCreated: false
     }
   }
+  componentWillMount = () => {
+    const lsAppExists = ls.checkApp()
+    this.setState({isHabitCreated: lsAppExists})
+  }
   handleHabitCreated = (event) => {
     event.preventDefault()
     this.setState({isHabitCreated: true})
+    ls.setValue('habitAppExists', 'true')
   }
   handleHabitDelete = () => {
     if (window.confirm('Are you sure you want to delete this habit and start over?')) {
       this.setState({isHabitCreated: false})
+      ls.deleteAll()
     }
   }
   render() {
