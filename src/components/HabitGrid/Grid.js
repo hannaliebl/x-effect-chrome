@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import ls from '../../util/localstorage';
 
 class Grid extends Component {
   constructor(props) {
@@ -19,6 +20,15 @@ class Grid extends Component {
     }
     return startDate.add(buffer, 'days').format('MM/DD/YY')
   }
+  componentWillMount = () => {
+    const lsKey = `habitGrid${this.props.rowId}${this.props.gridId}`
+    if (ls.getData(lsKey) === null) {
+      ls.setValue(lsKey, 'false')
+    } else {
+      const gridStateFromLs = (ls.getData(lsKey) === 'true')
+      this.setState({completed: gridStateFromLs})
+    }
+  }
   componentDidMount = () => {
     const today = moment().format('YYYY-MM-DD')
     const dateFormatted = moment(this.state.date, 'MM/DD/YY').format('YYYY-MM-DD')
@@ -28,8 +38,10 @@ class Grid extends Component {
     this.setState({isPast})
   }
   handleClick = () => {
+    const lsKey = `habitGrid${this.props.rowId}${this.props.gridId}`
     let isCompleted = this.state.completed
     this.setState({completed: !isCompleted})
+    ls.setValue(lsKey, !isCompleted)
   }
   render() {
     const clickHandleShow = this.state.isPast || this.state.isToday
