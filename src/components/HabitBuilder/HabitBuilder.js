@@ -3,6 +3,7 @@ import moment from 'moment';
 import HabitGrid from '../HabitGrid/HabitGrid';
 import HabitTitle from '../HabitTitle/HabitTitle';
 import ls from '../../util/localstorage';
+import './HabitBuilder.css';
 
 class HabitBuilder extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class HabitBuilder extends Component {
     }
   }
   componentWillMount = () => {
-    const habitTitle = ls.getData('habitTitle')
+    let habitTitle = ls.getData('habitTitle')
+    habitTitle = habitTitle === null ? '' : habitTitle
     const startDate = ls.getData('habitStartDate')
     this.setState({startDate, habitTitle})
   }
@@ -46,32 +48,39 @@ class HabitBuilder extends Component {
     }
     return (
       <form onSubmit={this.props.onCreate}>
-        <label htmlFor="habitTitle">
+        <label className="block-form-el form-label" htmlFor="habitTitle">
           Title:
         </label>
-        <input type="text"
+        <input className="block-form-el form-input" type="text"
           name="habitTitle"
           id="habitTitle"
           value={this.state.habitTitle}
           onChange={this.handleTitleChange} />
-        <label htmlFor="today">
-          <input type="radio"
+        <label className="block-form-el form-label" htmlFor="today">
+          <input className="block-form-el form-input" type="radio"
             name="startDate"
             id="today"
             value="today"
             onChange={this.handleDateChange} /> Today
         </label>
-        <label htmlFor="tomorrow">
-          <input type="radio"
+        <label className="block-form-el form-label" htmlFor="tomorrow">
+          <input className="block-form-el form-input" type="radio"
             name="startDate"
             id="tomorrow"
             value="tomorrow"
             onChange={this.handleDateChange} /> Tomorrow
         </label>
-        <button type="submit">Create Habit</button>
+        <label htmlFor="custom">
+          <input type="radio"
+            name="startDate"
+            id="custom"
+            value="custom"
+            onChange={this.handleDateChange} /> past :)
+        </label>
+        <button className="pull-right" type="submit">Create Habit</button>
       </form>
     )
   }
 }
 
-export default HabitBuilder;
+export default HabitBuilder
