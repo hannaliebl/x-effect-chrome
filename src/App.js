@@ -32,7 +32,7 @@ class App extends Component {
         <HabitBuilder isHabitCreated={this.state.isHabitCreated}
           onCreate={this.handleHabitCreated}
           onDelete={this.handleHabitDelete} />
-        <HabitNotesList notes={["foo", "bar", "baz"]} />
+        {/* <HabitNotesList notes={["foo", "bar", "baz"]} /> */}
       </div>
     );
   }
