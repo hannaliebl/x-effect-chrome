@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import HabitBuilder from './components/HabitBuilder/HabitBuilder';
-import HabitNotesList from './components/HabitNotes/HabitNotesList';
 import ls from './util/localstorage';
 import './App.css';
 
@@ -32,7 +31,6 @@ class App extends Component {
         <HabitBuilder isHabitCreated={this.state.isHabitCreated}
           onCreate={this.handleHabitCreated}
           onDelete={this.handleHabitDelete} />
-        {/* <HabitNotesList notes={["foo", "bar", "baz"]} /> */}
       </div>
     );
   }

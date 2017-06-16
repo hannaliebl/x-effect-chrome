@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import HabitGrid from '../HabitGrid/HabitGrid';
 import HabitTitle from '../HabitTitle/HabitTitle';
+import HabitNotesList from '../HabitNotes/HabitNotesList';
 import ls from '../../util/localstorage';
+import { generateId, addNote, removeNote } from '../../util/noteHelpers';
 import './HabitBuilder.css';
 
 class HabitBuilder extends Component {
@@ -10,7 +12,9 @@ class HabitBuilder extends Component {
     super(props)
     this.state = {
       habitTitle: "",
-      startDate: ""
+      startDate: "",
+      notes: [],
+      currentNote: ""
     }
   }
   componentWillMount = () => {
@@ -35,13 +39,33 @@ class HabitBuilder extends Component {
     this.setState({startDate: startDate})
     ls.setValue('habitStartDate', startDate)
   }
+  handleCurrentNoteChange = (event) => {
+    this.setState({
+      currentNote: event.target.value
+    })
+  }
+  handleNoteAdd = () => {
+    const newId = generateId()
+    const newNote = {id: newId, note: this.state.currentNote}
+    const updatedNotes = addNote(this.state.notes, newNote)
+    this.setState({
+      notes: updatedNotes,
+      currentNote: '',
+    })
+  }
+  handleNoteDelete = (id, event) => {
+    event.preventDefault()
+    const updatedNotes = removeNote(this.state.notes, id)
+    this.setState({notes: updatedNotes})
+  }
   render() {
     const habitCreated = this.props.isHabitCreated
     if (habitCreated) {
       return (
         <div>
           <HabitTitle title={this.state.habitTitle} />
-          <HabitGrid startDate={this.state.startDate}/>
+          <HabitGrid startDate={this.state.startDate} />
+          <HabitNotesList handleNoteDelete={this.handleNoteDelete} notes={this.state.notes} />
           <span onClick={this.props.onDelete}>Delete habit grid and start over</span>
         </div>
       )
@@ -86,7 +110,21 @@ class HabitBuilder extends Component {
                 onChange={this.handleDateChange} /> Custom
             </label>
           </div>
-          <button className="pull-right button" type="submit">Create Habit →</button>
+          <label className="block-form-el form-label" htmlFor="currentNote">
+            Add Notes (optional):
+          </label>
+          <input className="block-form-el form-input form-input-with-button" type="text"
+            name="currentNote"
+            id="currentNote"
+            value={this.state.currentNote}
+            onChange={this.handleCurrentNoteChange} />
+          <div className="row">
+            <span className="button button-small pull-right" onClick={this.handleNoteAdd}>Add Note</span>
+          </div>
+          <HabitNotesList handleNoteDelete={this.handleNoteDelete} notes={this.state.notes} />
+          <div className="row">
+            <button className="pull-right button" type="submit">Create Habit →</button>
+          </div>
         </form>
       </div>
     )

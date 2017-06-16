@@ -17,6 +17,10 @@
   border: 1px solid #fff;
 }
 
+.form-input-with-button {
+  margin-bottom: 4px;
+}
+
 .form-radio {
   display: block;
   position: relative;
@@ -39,6 +43,12 @@
   margin-left: -20px;
 }
 
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .pull-right {
   float: right;
 }
@@ -51,6 +61,12 @@
   color: #fff;
   border-radius: 3px;
   border: 0px solid #fff;
+}
+
+.button-small {
+  font-size: 14px;
+  padding: 4px 8px;
+  margin-bottom: 20px;
 }
 
 .button:hover {
