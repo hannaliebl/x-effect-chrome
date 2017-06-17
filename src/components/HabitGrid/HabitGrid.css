@@ -38,7 +38,6 @@
 
 /*past, not done*/
 .grid-box.is-past {
-  /*background: #F25F5C;*/
   background: #F79D65;
   color: #913E0B;
   cursor: pointer;
@@ -61,7 +60,6 @@
 
 .grid-x {
   margin-top: -7px;
-  /*font-size: 28px;*/
   stroke: #005E3E;
   fill: transparent;
   stroke-linecap: round;

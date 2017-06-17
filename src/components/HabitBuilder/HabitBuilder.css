@@ -73,3 +73,31 @@
   transition: all 300ms;
   background: #2A8973;
 }
+
+.delete-grid-container {
+  text-align: center;
+  margin: 0 auto;
+  font-size: 12px;
+}
+
+.delete-grid-icon {
+  cursor: pointer;
+  display: inline-block;
+  padding: 4px 10px;
+  line-height: 1.1;
+  font-size: 20px;
+  font-weight: 300;
+  background: #074444;
+  color: #0b7171;
+  border-radius: 20px;
+}
+
+.delete-grid-icon:hover {
+  transition: all 300ms;
+  background: #095c5c;
+}
+
+.delete-grid-text {
+  margin-top: 5px;
+  color: #074444;
+}

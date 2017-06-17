@@ -70,7 +70,10 @@ class HabitBuilder extends Component {
           <HabitTitle title={this.state.habitTitle} />
           <HabitGrid startDate={this.state.startDate} />
           <HabitNotesList handleNoteDelete={this.handleNoteDelete} notes={this.state.notes} />
-          <span onClick={this.props.onDelete}>Delete habit grid and start over</span>
+          <div className="delete-grid-container">
+            <div className="delete-grid-icon" onClick={this.props.onDelete}>x</div>
+            <div className="delete-grid-text">Delete habit grid and start over</div>
+          </div>
         </div>
       )
     }
