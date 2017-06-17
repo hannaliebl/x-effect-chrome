@@ -13,9 +13,6 @@ class HabitNote extends Component {
   handleMouseLeave = () => {
     this.setState({showDelete: false})
   }
-  // handleRemove = () => {
-  //   this.props.handleNoteDelete.bind(null, this.props.id)
-  // }
   render() {
     const handleRemove = this.props.handleNoteDelete.bind(null, this.props.id)
     return (

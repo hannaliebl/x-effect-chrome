@@ -20,8 +20,10 @@ class HabitBuilder extends Component {
   componentWillMount = () => {
     let habitTitle = ls.getData('habitTitle')
     habitTitle = habitTitle === null ? '' : habitTitle
+    let notes  = JSON.parse(ls.getData('habitNotes'))
+    notes = notes === null ? [] : notes
     const startDate = ls.getData('habitStartDate')
-    this.setState({startDate, habitTitle})
+    this.setState({startDate, habitTitle, notes})
   }
   handleTitleChange = (event) => {
     event.preventDefault()
@@ -52,11 +54,13 @@ class HabitBuilder extends Component {
       notes: updatedNotes,
       currentNote: '',
     })
+    ls.setValue('habitNotes', JSON.stringify(updatedNotes))
   }
   handleNoteDelete = (id, event) => {
     event.preventDefault()
     const updatedNotes = removeNote(this.state.notes, id)
     this.setState({notes: updatedNotes})
+    ls.setValue('habitNotes', JSON.stringify(updatedNotes))
   }
   render() {
     const habitCreated = this.props.isHabitCreated
