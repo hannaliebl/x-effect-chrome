@@ -62,6 +62,15 @@ class HabitBuilder extends Component {
     this.setState({notes: updatedNotes})
     ls.setValue('habitNotes', JSON.stringify(updatedNotes))
   }
+  handleHabitDeleteInBuilder = () => {
+    this.setState({
+      habitTitle: "",
+      startDate: "",
+      notes: [],
+      currentNote: ""
+    })
+    this.props.onDelete()
+  }
   render() {
     const habitCreated = this.props.isHabitCreated
     if (habitCreated) {
@@ -71,7 +80,7 @@ class HabitBuilder extends Component {
           <HabitGrid startDate={this.state.startDate} />
           <HabitNotesList handleNoteDelete={this.handleNoteDelete} notes={this.state.notes} />
           <div className="delete-grid-container">
-            <div className="delete-grid-icon" onClick={this.props.onDelete}>x</div>
+            <div className="delete-grid-icon" onClick={this.handleHabitDeleteInBuilder}>x</div>
             <div className="delete-grid-text">Delete habit grid and start over</div>
           </div>
         </div>
