@@ -13,6 +13,7 @@ class HabitBuilder extends Component {
     this.state = {
       habitTitle: "",
       startDate: "",
+      dateFormat: "",
       notes: [],
       currentNote: ""
     }
@@ -29,6 +30,9 @@ class HabitBuilder extends Component {
     event.preventDefault()
     this.setState({habitTitle: event.target.value})
     ls.setValue('habitTitle', event.target.value)
+  }
+  handleDateFormatChange = (event) => {
+    
   }
   handleDateChange = (event) => {
     let startDate = moment().format('MMMM D, YYYY')
@@ -126,6 +130,25 @@ class HabitBuilder extends Component {
                 onChange={this.handleDateChange} /> Custom
             </label>
           </div>
+          <div className="form-title">Date Format:</div>
+          <div className="form-radio">
+            <label className="form-label-radio" htmlFor="mmddyy">
+              <input type="radio"
+                name="startDate"
+                id="mmddyy"
+                value="mmddyy"
+                onChange={this.handleDateFormatChange} /> MM/DD/YY
+            </label>
+          </div>
+            <div className="form-radio">
+              <label className="form-label-radio" htmlFor="ddmmyy">
+                <input type="radio"
+                  name="startDate"
+                  id="ddmmyy"
+                  value="ddmmyy"
+                  onChange={this.handleDateFormatChange} /> DD/MM/YY
+              </label>
+            </div>
           <label className="block-form-el form-label" htmlFor="currentNote">
             Add Notes (optional):
           </label>
