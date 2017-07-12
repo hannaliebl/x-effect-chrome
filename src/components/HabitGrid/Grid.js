@@ -16,9 +16,9 @@ class Grid extends Component {
     const startDate = moment(this.props.startDate, 'MMMM D, YYYY');
     const buffer = (parseInt((this.props.rowId * 7), 10)) + (parseInt((this.props.gridId), 10))
     if (buffer === 0) {
-      return moment(this.props.startDate, 'MMMM D, YYYY').format('MM/DD/YY')
+      return moment(this.props.startDate, 'MMMM D, YYYY').format(this.props.dateFormat)
     }
-    return startDate.add(buffer, 'days').format('MM/DD/YY')
+    return startDate.add(buffer, 'days').format(this.props.dateFormat)
   }
   componentWillMount = () => {
     const lsKey = `habitGrid${this.props.rowId}${this.props.gridId}`
@@ -31,7 +31,7 @@ class Grid extends Component {
   }
   componentDidMount = () => {
     const today = moment().format('YYYY-MM-DD')
-    const dateFormatted = moment(this.state.date, 'MM/DD/YY').format('YYYY-MM-DD')
+    const dateFormatted = moment(this.state.date, this.props.dateFormat).format('YYYY-MM-DD')
     const isToday = moment(dateFormatted).isSame(today, 'YYYY-MM-DD');
     const isPast = moment(dateFormatted).isBefore(today, 'YYYY-MM-DD');
     this.setState({isToday})

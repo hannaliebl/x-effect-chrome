@@ -24,7 +24,8 @@ class HabitBuilder extends Component {
     let notes  = JSON.parse(ls.getData('habitNotes'))
     notes = notes === null ? [] : notes
     const startDate = ls.getData('habitStartDate')
-    this.setState({startDate, habitTitle, notes})
+    const dateFormat = ls.getData('dateFormat')
+    this.setState({startDate, habitTitle, notes, dateFormat})
   }
   handleTitleChange = (event) => {
     event.preventDefault()
@@ -32,7 +33,14 @@ class HabitBuilder extends Component {
     ls.setValue('habitTitle', event.target.value)
   }
   handleDateFormatChange = (event) => {
-    
+    if (event.target.value === 'mmddyy') {
+      this.setState({dateFormat: 'MM/DD/YY'})
+      ls.setValue('dateFormat', 'MM/DD/YY')
+    }
+    if (event.target.value === 'ddmmyy') {
+      this.setState({dateFormat: 'DD/MM/YY'})
+      ls.setValue('dateFormat', 'DD/MM/YY')
+    }
   }
   handleDateChange = (event) => {
     let startDate = moment().format('MMMM D, YYYY')
@@ -70,6 +78,7 @@ class HabitBuilder extends Component {
     this.setState({
       habitTitle: "",
       startDate: "",
+      dateFormat: "",
       notes: [],
       currentNote: ""
     })
@@ -81,7 +90,7 @@ class HabitBuilder extends Component {
       return (
         <div>
           <HabitTitle title={this.state.habitTitle} />
-          <HabitGrid startDate={this.state.startDate} />
+          <HabitGrid startDate={this.state.startDate} dateFormat={this.state.dateFormat} />
           <HabitNotesList handleNoteDelete={this.handleNoteDelete} notes={this.state.notes} />
           <div className="delete-grid-container">
             <div className="delete-grid-icon" onClick={this.handleHabitDeleteInBuilder}>x</div>
@@ -134,7 +143,7 @@ class HabitBuilder extends Component {
           <div className="form-radio">
             <label className="form-label-radio" htmlFor="mmddyy">
               <input type="radio"
-                name="startDate"
+                name="dateFormat"
                 id="mmddyy"
                 value="mmddyy"
                 onChange={this.handleDateFormatChange} /> MM/DD/YY
@@ -143,7 +152,7 @@ class HabitBuilder extends Component {
             <div className="form-radio">
               <label className="form-label-radio" htmlFor="ddmmyy">
                 <input type="radio"
-                  name="startDate"
+                  name="dateFormat"
                   id="ddmmyy"
                   value="ddmmyy"
                   onChange={this.handleDateFormatChange} /> DD/MM/YY
