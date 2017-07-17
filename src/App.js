@@ -15,7 +15,6 @@ class App extends Component {
     this.setState({isHabitCreated: lsAppExists})
   }
   handleHabitCreated = (event) => {
-    event.preventDefault()
     this.setState({isHabitCreated: true})
     ls.setValue('habitAppExists', 'true')
   }

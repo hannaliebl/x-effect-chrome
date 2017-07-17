@@ -17,6 +17,10 @@
   border: 1px solid #fff;
 }
 
+.form-input.has-error {
+  border: 1px solid #F79D65;
+}
+
 .form-input-with-button {
   margin-bottom: 4px;
 }
