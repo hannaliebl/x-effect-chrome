@@ -3,8 +3,6 @@ const FormValidation = (key, formVal) => {
     case "habitTitle":
     case "currentNote":
       return formVal === "";
-    case "startDate":
-      return formVal;
     default:
       return false;
   }

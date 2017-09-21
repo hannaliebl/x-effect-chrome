@@ -18,6 +18,7 @@ class HabitBuilder extends Component {
       dateFormat: "",
       notes: [],
       currentNote: "",
+      noteError: false,
       errors: {
         habitTitle: false,
         startDate: false,
@@ -37,9 +38,15 @@ class HabitBuilder extends Component {
   };
   handleTitleChange = event => {
     event.preventDefault();
+    if (this.state.errors.habitTitle) {
+      this.handleErrors(event);
+    }
     this.setState({ habitTitle: event.target.value });
   };
   handleDateFormatChange = event => {
+    if (this.state.errors.dateFormat) {
+      this.handleErrors(event);
+    }
     if (event.target.value === "mmddyy") {
       this.setState({ dateFormat: "MM/DD/YY" });
     }
@@ -49,14 +56,16 @@ class HabitBuilder extends Component {
   };
   handleDateChange = event => {
     let startDate = moment().format("MMMM D, YYYY");
+    if (this.state.errors.startDate) {
+      this.handleErrors(event);
+    }
     if (event.target.value === "tomorrow") {
       startDate = moment().add(1, "days").format("MMMM D, YYYY");
     }
     if (event.target.value === "custom") {
-      startDate = moment("2017-06-30").format("MMMM D, YYYY");
+      startDate = moment("2017-08-30").format("MMMM D, YYYY");
     }
     this.setState({ startDate: startDate });
-    debugger;
   };
   handleCurrentNoteChange = event => {
     this.setState({
@@ -65,14 +74,18 @@ class HabitBuilder extends Component {
   };
   handleNoteAdd = event => {
     event.preventDefault();
-    const newId = generateId();
-    const newNote = { id: newId, note: this.state.currentNote };
-    const updatedNotes = addNote(this.state.notes, newNote);
-    this.setState({
-      notes: updatedNotes,
-      currentNote: ""
-    });
-    ls.setValue("habitNotes", JSON.stringify(updatedNotes));
+    const hasError = FormValidation("currentNote", this.state.currentNote);
+    this.setState({ noteError: hasError });
+    if (!hasError) {
+      const newId = generateId();
+      const newNote = { id: newId, note: this.state.currentNote };
+      const updatedNotes = addNote(this.state.notes, newNote);
+      this.setState({
+        notes: updatedNotes,
+        currentNote: ""
+      });
+      ls.setValue("habitNotes", JSON.stringify(updatedNotes));
+    }
   };
   handleNoteDelete = (id, event) => {
     event.preventDefault();
@@ -97,8 +110,8 @@ class HabitBuilder extends Component {
     });
   };
   checkValues = event => {
-    var hasAnyErr = false;
-    var tempErrObj = {
+    let hasAnyErr = false;
+    const tempErrObj = {
       habitTitle: false,
       startDate: false,
       dateFormat: false
@@ -164,7 +177,6 @@ class HabitBuilder extends Component {
             name="habitTitle"
             id="habitTitle"
             value={this.state.habitTitle}
-            onBlur={this.handleErrors}
             onChange={this.handleTitleChange}
           />
           {this.state.errors.habitTitle &&
@@ -180,7 +192,6 @@ class HabitBuilder extends Component {
                 name="startDate"
                 id="today"
                 value="today"
-                onBlur={this.handleErrors}
                 onChange={this.handleDateChange}
               />{" "}
               Today
@@ -193,7 +204,6 @@ class HabitBuilder extends Component {
                 name="startDate"
                 id="tomorrow"
                 value="tomorrow"
-                onBlur={this.handleErrors}
                 onChange={this.handleDateChange}
               />{" "}
               Tomorrow
@@ -206,7 +216,6 @@ class HabitBuilder extends Component {
                 name="startDate"
                 id="custom"
                 value="custom"
-                onBlur={this.handleErrors}
                 onChange={this.handleDateChange}
               />{" "}
               Custom
@@ -251,13 +260,20 @@ class HabitBuilder extends Component {
             Add Notes (optional):
           </label>
           <input
-            className="block-form-el form-input form-input-with-button"
+            className={`block-form-el form-input ${this.state.noteError
+              ? "has-error"
+              : ""}`}
             type="text"
             name="currentNote"
             id="currentNote"
             value={this.state.currentNote}
             onChange={this.handleCurrentNoteChange}
           />
+          {this.state.noteError &&
+            <FormError
+              hasErrors={this.state.noteError}
+              errorMsg="You have to enter a note to add a note."
+            />}
           <div className="row">
             <button
               className="button button-small pull-right"
