@@ -1,28 +1,33 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class HabitNote extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       showDelete: false
-    }
+    };
   }
   handleMouseEnter = () => {
-    this.setState({showDelete: true})
-  }
+    this.setState({ showDelete: true });
+  };
   handleMouseLeave = () => {
-    this.setState({showDelete: false})
-  }
+    this.setState({ showDelete: false });
+  };
   render() {
-    const handleRemove = this.props.handleNoteDelete.bind(null, this.props.id)
+    const handleRemove = this.props.handleNoteDelete.bind(null, this.props.id);
     return (
-      <div onMouseEnter={this.handleMouseEnter}
+      <div
+        onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
-        className="note">
+        className="note"
+      >
         {this.props.note}
-        {this.state.showDelete && <span className="delete-trigger" onClick={handleRemove}>x</span>}
+        {this.state.showDelete &&
+          <span className="delete-trigger" onClick={handleRemove}>
+            x
+          </span>}
       </div>
-    )
+    );
   }
 }
 

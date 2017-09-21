@@ -1,12 +1,15 @@
-import React from 'react';
-import './FormError.css';
+import React from "react";
+import "./FormError.css";
 
-const FormError = (props) => {
+const FormError = props => {
   return (
     <div className="error-container">
-      {props.hasErrors && <span className="help-block">{props.errorMsg}</span>}
+      {props.hasErrors &&
+        <span className="help-block">
+          {props.errorMsg}
+        </span>}
     </div>
-  )
-}
+  );
+};
 
-export default FormError
+export default FormError;

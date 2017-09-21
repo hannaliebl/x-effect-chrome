@@ -1,6 +1,6 @@
 .grid-container {
   padding: 10px 0;
-  background: #45DDE0;
+  background: #45dde0;
   background: #fff;
   border-radius: 4px;
 }
@@ -21,30 +21,30 @@
   height: 50px;
   float: left;
   border-radius: 2px;
-  background: #54DBDD;
+  background: #54dbdd;
   margin: 3px;
   position: relative;
-  color: #00989B;
+  color: #00989b;
 }
 
 .grid-box.is-today {
-  background: #00989B;
-  color: #54DBDD;
+  background: #00989b;
+  color: #54dbdd;
   cursor: pointer;
   /*border: 1px solid green;*/
 }
 
 /*past, not done*/
 .grid-box.is-past {
-  background: #F79D65;
-  color: #913E0B;
+  background: #f79d65;
+  color: #913e0b;
   cursor: pointer;
 }
 
 /*past, completed*/
 .grid-box.is-past.is-completed {
-  background: #0DAB76;
-  color: #005E3E;
+  background: #0dab76;
+  color: #005e3e;
   cursor: pointer;
 }
 
@@ -58,12 +58,12 @@
 
 .grid-x {
   margin-top: -7px;
-  stroke: #005E3E;
+  stroke: #005e3e;
   fill: transparent;
   stroke-linecap: round;
   stroke-width: 3;
 }
 
 .grid-box.is-today .grid-x {
-  stroke: #54DBDD;
+  stroke: #54dbdd;
 }
