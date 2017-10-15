@@ -119,7 +119,11 @@ class HabitBuilder extends Component {
     const valuesCheck = ["habitTitle", "startDate", "dateFormat"];
     event.preventDefault();
     valuesCheck.forEach(key => {
-      if (this.state[key] === "" || this.state[key] === null) {
+      if (
+        this.state[key] === "" ||
+        this.state[key] === null ||
+        /^\s*$/.test(this.state[key])
+      ) {
         hasAnyErr = true;
         tempErrObj[key] = true;
       }
