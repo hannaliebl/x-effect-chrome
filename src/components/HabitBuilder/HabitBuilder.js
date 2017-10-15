@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import moment from "moment";
 import FormError from "./FormError";
 import HabitGrid from "../HabitGrid/HabitGrid";
@@ -300,5 +301,11 @@ class HabitBuilder extends Component {
     );
   }
 }
+
+HabitBuilder.propTypes = {
+  isHabitCreated: PropTypes.bool.isRequired,
+  onCreate: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
+};
 
 export default HabitBuilder;

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class HabitNote extends Component {
   constructor(props) {
@@ -30,5 +31,11 @@ class HabitNote extends Component {
     );
   }
 }
+
+HabitNote.propTypes = {
+  handleNoteDelete: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  note: PropTypes.string.isRequired
+};
 
 export default HabitNote;

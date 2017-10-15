@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Grid from "./Grid";
 
 const GridRow = props => {
@@ -48,6 +49,12 @@ const GridRow = props => {
       />
     </div>
   );
+};
+
+GridRow.propTypes = {
+  dateFormat: PropTypes.string.isRequired,
+  rowId: PropTypes.string.isRequired,
+  startDate: PropTypes.string.isRequired
 };
 
 export default GridRow;

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import GridRow from "./GridRow";
 import "./HabitGrid.css";
 
@@ -42,6 +43,11 @@ const HabitGrid = props => {
       />
     </div>
   );
+};
+
+HabitGrid.propTypes = {
+  dateFormat: PropTypes.string.isRequired,
+  startDate: PropTypes.string.isRequired
 };
 
 export default HabitGrid;

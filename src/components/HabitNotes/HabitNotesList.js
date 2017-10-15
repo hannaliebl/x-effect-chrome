@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import HabitNote from "./HabitNote";
 import "./HabitNotes.css";
 
@@ -16,6 +17,11 @@ const HabitNotesList = props => {
       )}
     </div>
   );
+};
+
+HabitNotesList.propTypes = {
+  handleNoteDelete: PropTypes.func.isRequired,
+  notes: PropTypes.array.isRequired
 };
 
 export default HabitNotesList;

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import moment from "moment";
 import ls from "../../util/localstorage";
 
@@ -79,5 +80,12 @@ class Grid extends Component {
     );
   }
 }
+
+Grid.propTypes = {
+  dateFormat: PropTypes.string.isRequired,
+  gridId: PropTypes.string.isRequired,
+  rowId: PropTypes.string.isRequired,
+  startDate: PropTypes.string.isRequired
+};
 
 export default Grid;
