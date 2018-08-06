@@ -61,7 +61,9 @@ class HabitBuilder extends Component {
       this.handleErrors(event);
     }
     if (event.target.value === "tomorrow") {
-      startDate = moment().add(1, "days").format("MMMM D, YYYY");
+      startDate = moment()
+        .add(1, "days")
+        .format("MMMM D, YYYY");
     }
     if (event.target.value === "custom") {
       startDate = moment("2017-08-30").format("MMMM D, YYYY");
@@ -175,20 +177,21 @@ class HabitBuilder extends Component {
             Title:
           </label>
           <input
-            className={`block-form-el form-input ${this.state.errors.habitTitle
-              ? "has-error"
-              : ""}`}
+            className={`block-form-el form-input ${
+              this.state.errors.habitTitle ? "has-error" : ""
+            }`}
             type="text"
             name="habitTitle"
             id="habitTitle"
             value={this.state.habitTitle}
             onChange={this.handleTitleChange}
           />
-          {this.state.errors.habitTitle &&
+          {this.state.errors.habitTitle && (
             <FormError
               hasErrors={this.state.errors.habitTitle}
               errorMsg="A title is required."
-            />}
+            />
+          )}
           <div className="form-title">Start Date:</div>
           <div className="form-radio">
             <label className="form-label-radio" htmlFor="today">
@@ -226,11 +229,12 @@ class HabitBuilder extends Component {
               Custom
             </label>
           </div>
-          {this.state.errors.startDate &&
+          {this.state.errors.startDate && (
             <FormError
               hasErrors={this.state.errors.startDate}
               errorMsg="A start date is required."
-            />}
+            />
+          )}
           <div className="form-title">Date Format:</div>
           <div className="form-radio">
             <label className="form-label-radio" htmlFor="mmddyy">
@@ -256,29 +260,31 @@ class HabitBuilder extends Component {
               DD/MM/YY
             </label>
           </div>
-          {this.state.errors.dateFormat &&
+          {this.state.errors.dateFormat && (
             <FormError
               hasErrors={this.state.errors.dateFormat}
               errorMsg="A date format is required."
-            />}
+            />
+          )}
           <label className="block-form-el form-label" htmlFor="currentNote">
             Add Notes (optional):
           </label>
           <input
-            className={`block-form-el form-input ${this.state.noteError
-              ? "has-error"
-              : ""}`}
+            className={`block-form-el form-input ${
+              this.state.noteError ? "has-error" : ""
+            }`}
             type="text"
             name="currentNote"
             id="currentNote"
             value={this.state.currentNote}
             onChange={this.handleCurrentNoteChange}
           />
-          {this.state.noteError &&
+          {this.state.noteError && (
             <FormError
               hasErrors={this.state.noteError}
               errorMsg="You have to enter a note to add a note."
-            />}
+            />
+          )}
           <div className="row">
             <button
               className="button button-small pull-right"

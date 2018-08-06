@@ -43,11 +43,13 @@ class Grid extends Component {
     this.setState({ isToday });
     this.setState({ isPast });
   };
-  handleClick = () => {
-    const lsKey = `habitGrid${this.props.rowId}${this.props.gridId}`;
-    let isCompleted = this.state.completed;
-    this.setState({ completed: !isCompleted });
-    ls.setValue(lsKey, !isCompleted);
+  handleClick = event => {
+    if (!event.keyCode || event.keyCode === 13) {
+      const lsKey = `habitGrid${this.props.rowId}${this.props.gridId}`;
+      let isCompleted = this.state.completed;
+      this.setState({ completed: !isCompleted });
+      ls.setValue(lsKey, !isCompleted);
+    }
   };
   render() {
     const clickHandleShow = this.state.isPast || this.state.isToday;
@@ -59,6 +61,12 @@ class Grid extends Component {
     }
     return (
       <div
+        tabIndex={
+          (this.state.isPast || this.state.isToday) &&
+          parseInt(this.props.rowId, 10) * 7 +
+            parseInt(this.props.gridId, 10) +
+            1
+        }
         className={
           "grid-box " +
           (this.state.isToday ? "is-today " : "") +
@@ -66,16 +74,16 @@ class Grid extends Component {
           (this.state.completed ? "is-completed" : "")
         }
         onClick={clickResult}
+        onKeyDown={clickResult}
       >
-        {this.state.completed &&
+        {this.state.completed && (
           <div className="grid-x">
             <svg viewBox="0 0 40 40">
               <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
             </svg>
-          </div>}
-        <div className="grid-date">
-          {this.state.date}
-        </div>
+          </div>
+        )}
+        <div className="grid-date">{this.state.date}</div>
       </div>
     );
   }
