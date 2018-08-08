@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import HabitBuilder from "./components/HabitBuilder/HabitBuilder";
+import XEffectContainer from "./components/XEffectContainer";
 import ls from "./util/localstorage";
 import "./App.css";
 
@@ -10,7 +10,7 @@ class App extends Component {
       isHabitCreated: false
     };
   }
-  componentWillMount = () => {
+  componentDidMount = () => {
     const lsAppExists = ls.checkApp();
     this.setState({ isHabitCreated: lsAppExists });
   };
@@ -31,7 +31,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <HabitBuilder
+        <XEffectContainer
           isHabitCreated={this.state.isHabitCreated}
           onCreate={this.handleHabitCreated}
           onDelete={this.handleHabitDelete}

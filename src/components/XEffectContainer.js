@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
-import FormError from "./FormError";
-import HabitGrid from "../HabitGrid/HabitGrid";
-import HabitTitle from "../HabitTitle/HabitTitle";
-import HabitNotesList from "../HabitNotes/HabitNotesList";
-import ls from "../../util/localstorage";
-import FormValidation from "../../util/FormValidation";
-import { generateId, addNote, removeNote } from "../../util/noteHelpers";
-import "./HabitBuilder.css";
+import FormError from "./HabitBuilder/FormError";
+import HabitGrid from "./HabitGrid/HabitGrid";
+import HabitTitle from "./HabitTitle/HabitTitle";
+import HabitNotesList from "./HabitNotes/HabitNotesList";
+import HabitGridContainer from "./HabitGridContainer";
+import ls from "../util/localstorage";
+import FormValidation from "../util/FormValidation";
+import { generateId, addNote, removeNote } from "../util/noteHelpers";
+import "./XEffectContainer.css";
 
-class HabitBuilder extends Component {
+class XEffectContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -94,14 +95,15 @@ class HabitBuilder extends Component {
     ls.setValue("habitNotes", JSON.stringify(updatedNotes));
   };
 
-  handleHabitDeleteInBuilder = () => {
-    this.setState({
-      habitTitle: "",
-      startDate: "",
-      dateFormat: "",
-      notes: [],
-      currentNote: ""
-    });
+  handleHabitDeleteInBuilder = event => {
+    // TODO: deal with this state level
+    // this.setState({
+    //   habitTitle: "",
+    //   startDate: "",
+    //   dateFormat: "",
+    //   notes: [],
+    //   currentNote: ""
+    // });
     this.props.onDelete();
   };
 
@@ -146,28 +148,14 @@ class HabitBuilder extends Component {
     const habitCreated = this.props.isHabitCreated;
     if (habitCreated) {
       return (
-        <div>
-          <HabitTitle title={this.state.habitTitle} />
-          <HabitGrid
-            startDate={this.state.startDate}
-            dateFormat={this.state.dateFormat}
-          />
-          <HabitNotesList
-            handleNoteDelete={this.handleNoteDelete}
-            notes={this.state.notes}
-          />
-          <div className="delete-grid-container">
-            <div
-              className="delete-grid-icon"
-              onClick={this.handleHabitDeleteInBuilder}
-            >
-              x
-            </div>
-            <div className="delete-grid-text">
-              Delete habit grid and start over
-            </div>
-          </div>
-        </div>
+        <HabitGridContainer
+          habitTitle={this.state.habitTitle}
+          startDate={this.state.startDate}
+          dateFormat={this.state.dateFormat}
+          handleNoteDelete={this.handleNoteDelete}
+          notes={this.state.notes}
+          handleHabitDeleteInBuilder={this.handleHabitDeleteInBuilder}
+        />
       );
     }
     return (
@@ -309,10 +297,10 @@ class HabitBuilder extends Component {
   }
 }
 
-HabitBuilder.propTypes = {
+XEffectContainer.propTypes = {
   isHabitCreated: PropTypes.bool.isRequired,
   onCreate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired
 };
 
-export default HabitBuilder;
+export default XEffectContainer;
