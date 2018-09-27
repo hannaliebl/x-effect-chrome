@@ -9,6 +9,7 @@ To run it: `npm install` then `npm run start`.
 - ~~Add validation to creation form~~
 - ~~Add propTypes~~
 - Add ability to add notes from grid view
+- Remove moment for something like https://github.com/date-fns/date-fns so I don't have to deal with ejecting webpack config for the locale fix
 - More accessibility improvements (high contrast mode?)
 - Split out habit notes into separate component - look for other places to do same
 - Add help text/about info - to creation screen and grid view

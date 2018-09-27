@@ -6,13 +6,30 @@ import ls from "../../util/localstorage";
 class Grid extends Component {
   constructor(props) {
     super(props);
+
+    const lsKey = `habitGrid${props.rowId}${props.gridId}`;
+    let gridStateFromLs;
+    if (ls.getData(lsKey) === null) {
+      ls.setValue(lsKey, "false");
+    } else {
+      gridStateFromLs = ls.getData(lsKey) === "true";
+    }
+
+    const today = moment().format("YYYY-MM-DD");
+    const dateFormatted = moment(this.getDate(), props.dateFormat).format(
+      "YYYY-MM-DD"
+    );
+    const isToday = moment(dateFormatted).isSame(today, "YYYY-MM-DD");
+    const isPast = moment(dateFormatted).isBefore(today, "YYYY-MM-DD");
+
     this.state = {
-      completed: false,
+      completed: gridStateFromLs || false,
       date: this.getDate(),
-      isToday: false,
-      isPast: false
+      isToday,
+      isPast
     };
   }
+
   getDate = () => {
     const startDate = moment(this.props.startDate, "MMMM D, YYYY");
     const buffer =
@@ -24,25 +41,7 @@ class Grid extends Component {
     }
     return startDate.add(buffer, "days").format(this.props.dateFormat);
   };
-  componentWillMount = () => {
-    const lsKey = `habitGrid${this.props.rowId}${this.props.gridId}`;
-    if (ls.getData(lsKey) === null) {
-      ls.setValue(lsKey, "false");
-    } else {
-      const gridStateFromLs = ls.getData(lsKey) === "true";
-      this.setState({ completed: gridStateFromLs });
-    }
-  };
-  componentDidMount = () => {
-    const today = moment().format("YYYY-MM-DD");
-    const dateFormatted = moment(this.state.date, this.props.dateFormat).format(
-      "YYYY-MM-DD"
-    );
-    const isToday = moment(dateFormatted).isSame(today, "YYYY-MM-DD");
-    const isPast = moment(dateFormatted).isBefore(today, "YYYY-MM-DD");
-    this.setState({ isToday });
-    this.setState({ isPast });
-  };
+
   handleClick = event => {
     if (!event.keyCode || event.keyCode === 13) {
       const lsKey = `habitGrid${this.props.rowId}${this.props.gridId}`;
@@ -51,8 +50,10 @@ class Grid extends Component {
       ls.setValue(lsKey, !isCompleted);
     }
   };
+
   render() {
-    const clickHandleShow = this.state.isPast || this.state.isToday;
+    const { isPast, isToday, completed, date } = this.state;
+    const clickHandleShow = isPast || isToday;
     let clickResult = null;
     if (clickHandleShow) {
       clickResult = this.handleClick;
@@ -61,24 +62,24 @@ class Grid extends Component {
     }
     return (
       <div
-        tabIndex={this.state.isToday || this.state.isPast ? "0" : "-1"}
+        tabIndex={isToday || isPast ? "0" : "-1"}
         className={
           "grid-box " +
-          (this.state.isToday ? "is-today " : "") +
-          (this.state.isPast ? "is-past " : "") +
-          (this.state.completed ? "is-completed" : "")
+          (isToday ? "is-today " : "") +
+          (isPast ? "is-past " : "") +
+          (completed ? "is-completed" : "")
         }
         onClick={clickResult}
         onKeyDown={clickResult}
       >
-        {this.state.completed && (
+        {completed && (
           <div className="grid-x">
             <svg viewBox="0 0 40 40">
               <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
             </svg>
           </div>
         )}
-        <div className="grid-date">{this.state.date}</div>
+        <div className="grid-date">{date}</div>
       </div>
     );
   }
