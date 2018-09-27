@@ -97,14 +97,13 @@ class XEffectContainer extends Component {
   };
 
   handleHabitDeleteInBuilder = event => {
-    // TODO: deal with this state level
-    // this.setState({
-    //   habitTitle: "",
-    //   startDate: "",
-    //   dateFormat: "",
-    //   notes: [],
-    //   currentNote: ""
-    // });
+    this.setState({
+      habitTitle: "",
+      startDate: "",
+      dateFormat: "",
+      notes: [],
+      currentNote: ""
+    });
     if (!event.keyCode || event.keyCode === 13) {
       this.props.onDelete(event);
     }
