@@ -26,7 +26,9 @@ class HabitGridContainer extends Component {
         <div className="delete-grid-container">
           <div
             className="delete-grid-icon"
+            tabIndex="0"
             onClick={handleHabitDeleteInBuilder}
+            onKeyDown={handleHabitDeleteInBuilder}
           >
             x
           </div>

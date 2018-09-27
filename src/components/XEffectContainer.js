@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
-import FormError from "./HabitBuilder/FormError";
+import FormError from "./FormError/FormError";
 import HabitGrid from "./HabitGrid/HabitGrid";
 import HabitTitle from "./HabitTitle/HabitTitle";
 import HabitNotesList from "./HabitNotes/HabitNotesList";
@@ -61,7 +61,7 @@ class XEffectContainer extends Component {
         .format("MMMM D, YYYY");
     }
     if (event.target.value === "custom") {
-      startDate = moment("2017-08-30").format("MMMM D, YYYY");
+      startDate = moment("2018-08-15").format("MMMM D, YYYY");
     }
     this.setState({ startDate: startDate });
   };
@@ -89,10 +89,11 @@ class XEffectContainer extends Component {
   };
 
   handleNoteDelete = (id, event) => {
-    event.preventDefault();
-    const updatedNotes = removeNote(this.state.notes, id);
-    this.setState({ notes: updatedNotes });
-    ls.setValue("habitNotes", JSON.stringify(updatedNotes));
+    if (!event.keyCode || event.keyCode === 13) {
+      const updatedNotes = removeNote(this.state.notes, id);
+      this.setState({ notes: updatedNotes });
+      ls.setValue("habitNotes", JSON.stringify(updatedNotes));
+    }
   };
 
   handleHabitDeleteInBuilder = event => {
@@ -104,7 +105,9 @@ class XEffectContainer extends Component {
     //   notes: [],
     //   currentNote: ""
     // });
-    this.props.onDelete();
+    if (!event.keyCode || event.keyCode === 13) {
+      this.props.onDelete(event);
+    }
   };
 
   handleErrors = event => {

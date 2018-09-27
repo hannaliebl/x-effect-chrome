@@ -61,12 +61,7 @@ class Grid extends Component {
     }
     return (
       <div
-        tabIndex={
-          (this.state.isPast || this.state.isToday) &&
-          parseInt(this.props.rowId, 10) * 7 +
-            parseInt(this.props.gridId, 10) +
-            1
-        }
+        tabIndex={this.state.isToday || this.state.isPast ? "0" : "-1"}
         className={
           "grid-box " +
           (this.state.isToday ? "is-today " : "") +

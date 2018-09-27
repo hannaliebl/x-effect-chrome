@@ -3,18 +3,21 @@
 }
 
 .note {
-  margin: 0px 0 10px 0px;
-  padding-left: 15px;
+  padding: 10px 15px;
   position: relative;
+}
+
+.note:nth-child(odd) {
+  background: #128587;
+  border-radius: 3px;
 }
 
 .delete-trigger {
   position: absolute;
   padding: 0px 5px;
-  left: -7px;
+  right: 0px;
   top: 0px;
-  color: #ef5b5b;
-  background: #074444;
+  color: #074444;
   border-radius: 3px;
   cursor: pointer;
   line-height: 1.2;

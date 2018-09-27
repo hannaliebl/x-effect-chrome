@@ -2,18 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 class HabitNote extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showDelete: false
-    };
-  }
-  handleMouseEnter = () => {
-    this.setState({ showDelete: true });
-  };
-  handleMouseLeave = () => {
-    this.setState({ showDelete: false });
-  };
   render() {
     const handleRemove = this.props.handleNoteDelete.bind(null, this.props.id);
     return (
@@ -23,10 +11,14 @@ class HabitNote extends Component {
         className="note"
       >
         {this.props.note}
-        {this.state.showDelete &&
-          <span className="delete-trigger" onClick={handleRemove}>
-            x
-          </span>}
+        <span
+          tabIndex="0"
+          className="delete-trigger"
+          onKeyDown={handleRemove}
+          onClick={handleRemove}
+        >
+          x
+        </span>
       </div>
     );
   }
