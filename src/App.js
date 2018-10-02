@@ -10,14 +10,17 @@ class App extends Component {
       isHabitCreated: false
     };
   }
+
   componentDidMount = () => {
-    const lsAppExists = ls.checkApp();
+    const lsAppExists = ls.appExists();
     this.setState({ isHabitCreated: lsAppExists });
   };
+
   handleHabitCreated = event => {
     this.setState({ isHabitCreated: true });
     ls.setValue("habitAppExists", "true");
   };
+
   handleHabitDelete = () => {
     if (
       window.confirm(
@@ -28,6 +31,7 @@ class App extends Component {
       ls.deleteAll();
     }
   };
+
   render() {
     return (
       <div className="container">

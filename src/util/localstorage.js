@@ -1,9 +1,6 @@
 const ls = {
-  checkApp() {
-    if (window.localStorage.habitAppExists) {
-      return true;
-    }
-    return false;
+  appExists() {
+    return window.localStorage.habitAppExists ? true : false;
   },
   setValue(key, value) {
     window.localStorage.setItem(key, value);

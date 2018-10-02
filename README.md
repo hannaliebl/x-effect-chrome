@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-To run it: `npm install` then `npm run start`.
+To run it: `yarn install` then `yarn start`.
 
 # TODO
 
