@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "prop-types": "^15.6.0",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
   },
   "devDependencies": {
     "moment": "^2.22.2",
