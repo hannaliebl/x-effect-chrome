@@ -54,11 +54,11 @@ class Grid extends Component {
   render() {
     const { isPast, isToday, completed, date } = this.state;
     const clickHandleShow = isPast || isToday;
-    let clickResult = null;
+    let addClickHandler = null;
     if (clickHandleShow) {
-      clickResult = this.handleClick;
+      addClickHandler = this.handleClick;
     } else {
-      clickResult = false;
+      addClickHandler = false;
     }
     return (
       <div
@@ -69,8 +69,8 @@ class Grid extends Component {
           (isPast ? "is-past " : "") +
           (completed ? "is-completed" : "")
         }
-        onClick={clickResult}
-        onKeyDown={clickResult}
+        onClick={addClickHandler ? this.handleClick : undefined}
+        onKeyDown={addClickHandler ? this.handleClick : undefined}
       >
         {completed && (
           <div className="grid-x">
