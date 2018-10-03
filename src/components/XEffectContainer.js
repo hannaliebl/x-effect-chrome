@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import moment from "moment";
-import FormError from "./FormError/FormError";
-import HabitGrid from "./HabitGrid/HabitGrid";
-import HabitTitle from "./HabitTitle/HabitTitle";
-import HabitNotesList from "./HabitNotes/HabitNotesList";
+import HabitGridBuilder from "./Forms/HabitGridBuilder";
 import HabitGridContainer from "./HabitGridContainer";
 import ls from "../util/localstorage";
 import FormValidation from "../util/FormValidation";
@@ -15,6 +11,7 @@ class XEffectContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isHabitCreated: ls.appExists(),
       habitTitle: ls.getData("habitTitle") || "",
       startDate: ls.getData("startDate") || "",
       dateFormat: ls.getData("dateFormat") || "",
@@ -97,15 +94,22 @@ class XEffectContainer extends Component {
   };
 
   handleHabitDeleteInBuilder = event => {
-    this.setState({
-      habitTitle: "",
-      startDate: "",
-      dateFormat: "",
-      notes: [],
-      currentNote: ""
-    });
     if (!event.keyCode || event.keyCode === 13) {
-      this.props.onDelete(event);
+      if (
+        window.confirm(
+          "Are you sure you want to delete this habit and start over?"
+        )
+      ) {
+        this.setState({
+          isHabitCreated: false,
+          habitTitle: "",
+          startDate: "",
+          dateFormat: "",
+          notes: [],
+          currentNote: ""
+        });
+        ls.deleteAll();
+      }
     }
   };
 
@@ -139,170 +143,57 @@ class XEffectContainer extends Component {
       ls.setValue("habitTitle", this.state.habitTitle);
       ls.setValue("dateFormat", this.state.dateFormat);
       ls.setValue("startDate", this.state.startDate);
-      this.props.onCreate.bind(null, this.state.errors)(event);
+      ls.setValue("habitAppExists", "true");
+      this.setState({ isHabitCreated: true });
     }
     this.setState({
       errors: tempErrObj
     });
   };
 
-  render() {
-    const habitCreated = this.props.isHabitCreated;
-    if (habitCreated) {
-      return (
-        <HabitGridContainer
-          habitTitle={this.state.habitTitle}
-          startDate={this.state.startDate}
-          dateFormat={this.state.dateFormat}
-          handleNoteDelete={this.handleNoteDelete}
-          notes={this.state.notes}
-          handleHabitDeleteInBuilder={this.handleHabitDeleteInBuilder}
-        />
-      );
+  handleNoteDelete = (id, event) => {
+    if (!event.keyCode || event.keyCode === 13) {
+      const updatedNotes = removeNote(this.state.notes, id);
+      this.setState({ notes: updatedNotes });
+      ls.setValue("habitNotes", JSON.stringify(updatedNotes));
     }
+  };
+
+  render() {
+    const habitCreated = this.state.isHabitCreated;
     return (
-      <div>
-        <h1>Create a New Habit</h1>
-        <form onSubmit={this.checkValues}>
-          <label className="block-form-el form-label" htmlFor="habitTitle">
-            Title:
-          </label>
-          <input
-            className={`block-form-el form-input ${
-              this.state.errors.habitTitle ? "has-error" : ""
-            }`}
-            type="text"
-            name="habitTitle"
-            id="habitTitle"
-            value={this.state.habitTitle}
-            onChange={this.handleTitleChange}
+      <div className="container">
+        {habitCreated ? (
+          <HabitGridContainer
+            habitTitle={this.state.habitTitle}
+            startDate={this.state.startDate}
+            dateFormat={this.state.dateFormat}
+            handleNoteDelete={this.handleNoteDelete}
+            notes={this.state.notes}
+            handleHabitDeleteInBuilder={this.handleHabitDeleteInBuilder}
           />
-          {this.state.errors.habitTitle && (
-            <FormError
-              hasErrors={this.state.errors.habitTitle}
-              errorMsg="A title is required."
-            />
-          )}
-          <div className="form-title">Start Date:</div>
-          <div className="form-radio">
-            <label className="form-label-radio" htmlFor="today">
-              <input
-                type="radio"
-                name="startDate"
-                id="today"
-                value="today"
-                onChange={this.handleDateChange}
-              />{" "}
-              Today
-            </label>
-          </div>
-          <div className="form-radio">
-            <label className="form-label-radio" htmlFor="tomorrow">
-              <input
-                type="radio"
-                name="startDate"
-                id="tomorrow"
-                value="tomorrow"
-                onChange={this.handleDateChange}
-              />{" "}
-              Tomorrow
-            </label>
-          </div>
-          <div className="form-radio">
-            <label className="form-label-radio" htmlFor="custom">
-              <input
-                type="radio"
-                name="startDate"
-                id="custom"
-                value="custom"
-                onChange={this.handleDateChange}
-              />{" "}
-              Custom
-            </label>
-          </div>
-          {this.state.errors.startDate && (
-            <FormError
-              hasErrors={this.state.errors.startDate}
-              errorMsg="A start date is required."
-            />
-          )}
-          <div className="form-title">Date Format:</div>
-          <div className="form-radio">
-            <label className="form-label-radio" htmlFor="mmddyy">
-              <input
-                type="radio"
-                name="dateFormat"
-                id="mmddyy"
-                value="mmddyy"
-                onChange={this.handleDateFormatChange}
-              />{" "}
-              MM/DD/YY
-            </label>
-          </div>
-          <div className="form-radio">
-            <label className="form-label-radio" htmlFor="ddmmyy">
-              <input
-                type="radio"
-                name="dateFormat"
-                id="ddmmyy"
-                value="ddmmyy"
-                onChange={this.handleDateFormatChange}
-              />{" "}
-              DD/MM/YY
-            </label>
-          </div>
-          {this.state.errors.dateFormat && (
-            <FormError
-              hasErrors={this.state.errors.dateFormat}
-              errorMsg="A date format is required."
-            />
-          )}
-          <label className="block-form-el form-label" htmlFor="currentNote">
-            Add Notes (optional):
-          </label>
-          <input
-            className={`block-form-el form-input ${
-              this.state.noteError ? "has-error" : ""
-            }`}
-            type="text"
-            name="currentNote"
-            id="currentNote"
-            value={this.state.currentNote}
-            onChange={this.handleCurrentNoteChange}
-          />
-          {this.state.noteError && (
-            <FormError
-              hasErrors={this.state.noteError}
-              errorMsg="You have to enter a note to add a note."
-            />
-          )}
-          <div className="row">
-            <button
-              className="button button-small pull-right"
-              onClick={this.handleNoteAdd}
-            >
-              Add Note
-            </button>
-          </div>
-          <HabitNotesList
+        ) : (
+          <HabitGridBuilder
+            checkValues={this.checkValues}
+            errors={this.state.errors}
+            habitTitle={this.state.habitTitle}
+            handleTitleChange={this.handleTitleChange}
+            handleDateChange={this.handleDateChange}
+            handleDateFormatChange={this.handleDateFormatChange}
+            noteError={this.state.noteError}
+            currentNote={this.state.currentNote}
+            handleCurrentNoteChange={this.handleCurrentNoteChange}
+            handleNoteAdd={this.handleNoteAdd}
             handleNoteDelete={this.handleNoteDelete}
             notes={this.state.notes}
           />
-          <div className="row">
-            <button className="pull-right button" type="submit">
-              Create Habit →
-            </button>
-          </div>
-        </form>
+        )}
       </div>
     );
   }
 }
 
-XEffectContainer.propTypes = {
-  isHabitCreated: PropTypes.bool.isRequired,
-  onCreate: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
-};
+// TOOD:
+// invert control for notes components
 
 export default XEffectContainer;

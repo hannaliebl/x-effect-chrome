@@ -1,45 +1,32 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import HabitGrid from "./HabitGrid/HabitGrid";
-import HabitTitle from "./HabitTitle/HabitTitle";
+import HabitTitle from "./HabitGrid/HabitTitle";
 import HabitNotesList from "./HabitNotes/HabitNotesList";
 
-class HabitGridContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const {
-      habitTitle,
-      startDate,
-      dateFormat,
-      handleNoteDelete,
-      notes,
-      handleHabitDeleteInBuilder
-    } = this.props;
-    return (
-      <div>
-        <HabitTitle title={habitTitle} />
-        <HabitGrid startDate={startDate} dateFormat={dateFormat} />
-        <HabitNotesList handleNoteDelete={handleNoteDelete} notes={notes} />
-        <div className="delete-grid-container">
-          <div
-            className="delete-grid-icon"
-            tabIndex="0"
-            onClick={handleHabitDeleteInBuilder}
-            onKeyDown={handleHabitDeleteInBuilder}
-          >
-            x
-          </div>
-          <div className="delete-grid-text">
-            Delete habit grid and start over
-          </div>
+const HabitGridContainer = props => {
+  return (
+    <div>
+      <HabitTitle title={props.habitTitle} />
+      <HabitGrid startDate={props.startDate} dateFormat={props.dateFormat} />
+      <HabitNotesList
+        handleNoteDelete={props.handleNoteDelete}
+        notes={props.notes}
+      />
+      <div className="delete-grid-container">
+        <div
+          className="delete-grid-icon"
+          tabIndex="0"
+          onClick={props.handleHabitDeleteInBuilder}
+          onKeyDown={props.handleHabitDeleteInBuilder}
+        >
+          x
         </div>
+        <div className="delete-grid-text">Delete habit grid and start over</div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 HabitGridContainer.propTypes = {
   habitTitle: PropTypes.string.isRequired,
