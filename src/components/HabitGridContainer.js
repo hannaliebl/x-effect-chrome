@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import HabitGrid from "./HabitGrid/HabitGrid";
 import HabitTitle from "./HabitGrid/HabitTitle";
 import HabitNotesList from "./HabitNotes/HabitNotesList";
+import FormError from "./Forms/FormError";
 
 const HabitGridContainer = props => {
   return (
@@ -13,6 +14,33 @@ const HabitGridContainer = props => {
         handleNoteDelete={props.handleNoteDelete}
         notes={props.notes}
       />
+      <label className="block-form-el form-label" htmlFor="currentNote">
+        Add Notes (optional):
+      </label>
+      <input
+        className={`block-form-el form-input ${
+          props.noteError ? "has-error" : ""
+        }`}
+        type="text"
+        name="currentNote"
+        id="currentNote"
+        value={props.currentNote}
+        onChange={props.handleCurrentNoteChange}
+      />
+      {props.noteError && (
+        <FormError
+          hasErrors={props.noteError}
+          errorMsg="You have to enter a note to add a note."
+        />
+      )}
+      <div className="row">
+        <button
+          className="button button-small pull-right"
+          onClick={props.handleNoteAdd}
+        >
+          Add Note
+        </button>
+      </div>
       <div className="delete-grid-container">
         <div
           className="delete-grid-icon"

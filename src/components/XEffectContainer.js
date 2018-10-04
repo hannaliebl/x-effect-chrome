@@ -171,6 +171,10 @@ class XEffectContainer extends Component {
             handleNoteDelete={this.handleNoteDelete}
             notes={this.state.notes}
             handleHabitDeleteInBuilder={this.handleHabitDeleteInBuilder}
+            noteError={this.state.noteError}
+            currentNote={this.state.currentNote}
+            handleCurrentNoteChange={this.handleCurrentNoteChange}
+            handleNoteAdd={this.handleNoteAdd}
           />
         ) : (
           <HabitGridBuilder
