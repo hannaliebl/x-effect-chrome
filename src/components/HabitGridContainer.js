@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import HabitGrid from "./HabitGrid/HabitGrid";
 import HabitTitle from "./HabitGrid/HabitTitle";
 import HabitNotesList from "./HabitNotes/HabitNotesList";
-import FormError from "./Forms/FormError";
-import AddNotes from "./HabitNotes/AddNotes";
 
 const HabitGridContainer = props => {
   return (
@@ -15,7 +13,7 @@ const HabitGridContainer = props => {
         handleNoteDelete={props.handleNoteDelete}
         notes={props.notes}
       />
-      <AddNotes noteInputTitle="" />
+      {props.addNotes}
       <div className="delete-grid-container">
         <div
           className="delete-grid-icon"
@@ -32,6 +30,7 @@ const HabitGridContainer = props => {
 };
 
 HabitGridContainer.propTypes = {
+  addNotes: PropTypes.element.isRequired,
   habitTitle: PropTypes.string.isRequired,
   startDate: PropTypes.string.isRequired,
   dateFormat: PropTypes.string.isRequired,

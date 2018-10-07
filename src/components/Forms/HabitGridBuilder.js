@@ -101,33 +101,7 @@ const HabitGridBuilder = props => {
             errorMsg="A date format is required."
           />
         )}
-        <label className="block-form-el form-label" htmlFor="currentNote">
-          Add Notes (optional):
-        </label>
-        <input
-          className={`block-form-el form-input ${
-            props.noteError ? "has-error" : ""
-          }`}
-          type="text"
-          name="currentNote"
-          id="currentNote"
-          value={props.currentNote}
-          onChange={props.handleCurrentNoteChange}
-        />
-        {props.noteError && (
-          <FormError
-            hasErrors={props.noteError}
-            errorMsg="You have to enter a note to add a note."
-          />
-        )}
-        <div className="row">
-          <button
-            className="button button-small pull-right"
-            onClick={props.handleNoteAdd}
-          >
-            Add Note
-          </button>
-        </div>
+        {props.addNotesInput}
         <HabitNotesList
           handleNoteDelete={props.handleNoteDelete}
           notes={props.notes}
@@ -143,16 +117,13 @@ const HabitGridBuilder = props => {
 };
 
 HabitGridBuilder.propTypes = {
+  addNotesInput: PropTypes.element.isRequired,
   checkValues: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   habitTitle: PropTypes.string.isRequired,
   handleTitleChange: PropTypes.func.isRequired,
   handleDateChange: PropTypes.func.isRequired,
   handleDateFormatChange: PropTypes.func.isRequired,
-  noteError: PropTypes.bool.isRequired,
-  currentNote: PropTypes.string.isRequired,
-  handleCurrentNoteChange: PropTypes.func.isRequired,
-  handleNoteAdd: PropTypes.func.isRequired,
   handleNoteDelete: PropTypes.func.isRequired,
   notes: PropTypes.array.isRequired
 };
