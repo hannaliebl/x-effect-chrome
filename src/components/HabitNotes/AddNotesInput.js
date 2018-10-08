@@ -26,6 +26,7 @@ const AddNotesInput = props => {
       )}
       <div className="row">
         <button
+          type="button"
           className="button button-small pull-right"
           onClick={props.handleNoteAdd}
         >

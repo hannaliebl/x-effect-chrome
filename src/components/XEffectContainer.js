@@ -30,7 +30,6 @@ class XEffectContainer extends Component {
   }
 
   handleTitleChange = event => {
-    event.preventDefault();
     if (this.state.errors.habitTitle) {
       this.handleErrors(event);
     }
@@ -72,7 +71,6 @@ class XEffectContainer extends Component {
   };
 
   handleNoteAdd = event => {
-    event.preventDefault();
     const hasError = FormValidation("currentNote", this.state.currentNote);
     this.setState({ noteError: hasError });
     if (!hasError) {
@@ -123,6 +121,7 @@ class XEffectContainer extends Component {
   };
 
   checkValues = event => {
+    event.preventDefault();
     let hasAnyErr = false;
     const tempErrObj = {
       habitTitle: false,
@@ -130,7 +129,6 @@ class XEffectContainer extends Component {
       dateFormat: false
     };
     const valuesCheck = ["habitTitle", "startDate", "dateFormat"];
-    event.preventDefault();
     valuesCheck.forEach(key => {
       if (
         this.state[key] === "" ||
@@ -180,12 +178,11 @@ class XEffectContainer extends Component {
         handleNoteAdd={this.handleNoteAdd}
       />
     );
-    const addNotes = <AddNotes addNotesInput={addNotesInputInGrid} />;
     return (
       <div className="container">
         {habitCreated ? (
           <HabitGridContainer
-            addNotes={addNotes}
+            addNotes={<AddNotes addNotesInput={addNotesInputInGrid} />}
             habitTitle={this.state.habitTitle}
             startDate={this.state.startDate}
             dateFormat={this.state.dateFormat}
