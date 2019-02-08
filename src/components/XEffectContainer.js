@@ -61,7 +61,7 @@ class XEffectContainer extends Component {
         .format("MMMM D, YYYY");
     }
     if (event.target.value === "custom") {
-      startDate = moment("2018-08-15").format("MMMM D, YYYY");
+      startDate = moment("2019-01-15").format("MMMM D, YYYY");
     }
     this.setState({ startDate: startDate });
   };

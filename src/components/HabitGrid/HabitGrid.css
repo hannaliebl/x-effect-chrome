@@ -31,7 +31,6 @@
   background: #00989b;
   color: #54dbdd;
   cursor: pointer;
-  /*border: 1px solid green;*/
 }
 
 /*past, not done*/
@@ -66,4 +65,20 @@
 
 .grid-box.is-today .grid-x {
   stroke: #54dbdd;
+}
+
+@media screen and (max-width: 450px) {
+  .grid-box {
+    width: 12.5%;
+    height: 45px;
+  }
+
+  .grid-date {
+    font-size: 9.5px;
+    left: 2px;
+  }
+
+  .grid-x {
+    margin-top: -3px;
+  }
 }
