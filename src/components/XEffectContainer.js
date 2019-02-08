@@ -20,6 +20,8 @@ class XEffectContainer extends Component {
       notes: JSON.parse(ls.getData("habitNotes")) || [],
       currentNote: "",
       noteError: false,
+      showAddNoteInput: false,
+      showCancel: true,
       errors: {
         habitTitle: false,
         startDate: false,
@@ -79,7 +81,8 @@ class XEffectContainer extends Component {
       const updatedNotes = addNote(this.state.notes, newNote);
       this.setState({
         notes: updatedNotes,
-        currentNote: ""
+        currentNote: "",
+        showAddNoteInput: false
       });
       ls.setValue("habitNotes", JSON.stringify(updatedNotes));
     }
@@ -159,10 +162,20 @@ class XEffectContainer extends Component {
     }
   };
 
+  handleNoteCancel = () => {
+    this.setState({ showAddNoteInput: false });
+  };
+
+  handleShowNoteInput = () => {
+    this.setState({ showAddNoteInput: true });
+  };
+
   render() {
     const habitCreated = this.state.isHabitCreated;
     const addNotesInputInGrid = (
       <AddNotesInput
+        hasCancelButton={true}
+        handleNoteCancel={this.handleNoteCancel}
         noteError={this.state.noteError}
         currentNote={this.state.currentNote}
         handleCurrentNoteChange={this.handleCurrentNoteChange}
@@ -182,7 +195,14 @@ class XEffectContainer extends Component {
       <div className="container">
         {habitCreated ? (
           <HabitGridContainer
-            addNotes={<AddNotes addNotesInput={addNotesInputInGrid} />}
+            showNoteCancel={this.state.showCancel}
+            addNotes={
+              <AddNotes
+                handleShowNoteInput={this.handleShowNoteInput}
+                showAddNoteInput={this.state.showAddNoteInput}
+                addNotesInput={addNotesInputInGrid}
+              />
+            }
             habitTitle={this.state.habitTitle}
             startDate={this.state.startDate}
             dateFormat={this.state.dateFormat}

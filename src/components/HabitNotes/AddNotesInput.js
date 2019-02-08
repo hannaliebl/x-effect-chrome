@@ -32,6 +32,15 @@ const AddNotesInput = props => {
         >
           Add Note
         </button>
+        {props.hasCancelButton && (
+          <button
+            type="button"
+            className="button button-small pull-right margin-right"
+            onClick={props.handleNoteCancel}
+          >
+            Cancel
+          </button>
+        )}
       </div>
     </React.Fragment>
   );
@@ -42,7 +51,9 @@ AddNotesInput.propTypes = {
   noteError: PropTypes.bool.isRequired,
   currentNote: PropTypes.string,
   handleCurrentNoteChange: PropTypes.func.isRequired,
-  handleNoteAdd: PropTypes.func.isRequired
+  handleNoteAdd: PropTypes.func.isRequired,
+  hasCancelButton: PropTypes.bool,
+  handleNoteCancel: PropTypes.func
 };
 
 export default AddNotesInput;

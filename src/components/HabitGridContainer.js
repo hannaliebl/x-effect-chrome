@@ -13,7 +13,7 @@ const HabitGridContainer = props => {
         handleNoteDelete={props.handleNoteDelete}
         notes={props.notes}
       />
-      {props.addNotes}
+      {props.showNoteCancel && props.addNotes}
       <div className="delete-grid-container">
         <div
           className="delete-grid-icon"
