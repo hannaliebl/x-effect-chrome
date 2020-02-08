@@ -10,7 +10,7 @@ To run it: `yarn install` then `yarn start`.
 - ~~Add propTypes~~
 - ~~Add ability to add notes from grid view~~
 - Refine add notes from grid view design/UX
-- Remove moment for something like https://github.com/date-fns/date-fns so I don't have to deal with ejecting webpack config for the locale fix
+- ~~Remove moment for something like https://github.com/date-fns/date-fns so I don't have to deal with ejecting webpack config for the locale fix~~
 - More accessibility improvements (high contrast mode?)
 - Split out habit notes into separate component - look for other places to do same
 - Add help text/about info - to creation screen and grid view

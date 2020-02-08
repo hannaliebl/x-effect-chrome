@@ -3,15 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "date-fns": "^2.9.0",
     "prop-types": "^15.6.0",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "react-dom": "^16.5.2",
+    "source-map-explorer": "^1.6.0"
   },
   "devDependencies": {
-    "moment": "^2.22.2",
     "react-scripts": "2.0.3"
   },
   "scripts": {
+    "analyze": "source-map-explorer build/static/js/main.*",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

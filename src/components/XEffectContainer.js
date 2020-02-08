@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import moment from "moment";
+import { format, addDays } from "date-fns";
 import ls from "../util/localstorage";
 import FormValidation from "../util/FormValidation";
 import { generateId, addNote, removeNote } from "../util/noteHelpers";
@@ -43,25 +43,23 @@ class XEffectContainer extends Component {
       this.handleErrors(event);
     }
     if (event.target.value === "mmddyy") {
-      this.setState({ dateFormat: "MM/DD/YY" });
+      this.setState({ dateFormat: "MM/dd/yy" });
     }
     if (event.target.value === "ddmmyy") {
-      this.setState({ dateFormat: "DD/MM/YY" });
+      this.setState({ dateFormat: "dd/MM/yy" });
     }
   };
 
   handleDateChange = event => {
-    let startDate = moment().format("MMMM D, YYYY");
+    let startDate = format(new Date(), "MMMM d, yyyy");
     if (this.state.errors.startDate) {
       this.handleErrors(event);
     }
     if (event.target.value === "tomorrow") {
-      startDate = moment()
-        .add(1, "days")
-        .format("MMMM D, YYYY");
+      startDate = format(addDays(new Date(), 1), "MMMM d, yyyy");
     }
     if (event.target.value === "custom") {
-      startDate = moment("2019-01-15").format("MMMM D, YYYY");
+      startDate = format(new Date("2020-01-20"), "MMMM d, yyyy");
     }
     this.setState({ startDate: startDate });
   };

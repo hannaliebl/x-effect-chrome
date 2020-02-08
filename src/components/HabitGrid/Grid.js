@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import moment from "moment";
+import { format, add, isToday, isBefore, parseISO } from "date-fns";
 import ls from "../../util/localstorage";
 
 class Grid extends Component {
@@ -15,31 +15,27 @@ class Grid extends Component {
       gridStateFromLs = ls.getData(lsKey) === "true";
     }
 
-    const today = moment().format("YYYY-MM-DD");
-    const dateFormatted = moment(this.getDate(), props.dateFormat).format(
-      "YYYY-MM-DD"
+    const isPast = isBefore(
+      parseISO(format(this.getDate(), "yyy-MM-dd")),
+      parseISO(format(new Date(), "yyy-MM-dd"))
     );
-    const isToday = moment(dateFormatted).isSame(today, "YYYY-MM-DD");
-    const isPast = moment(dateFormatted).isBefore(today, "YYYY-MM-DD");
 
     this.state = {
       completed: gridStateFromLs || false,
-      date: this.getDate(),
-      isToday,
+      date: format(this.getDate(), this.props.dateFormat),
+      isToday: isToday(this.getDate()),
       isPast
     };
   }
 
   getDate = () => {
-    const startDate = moment(this.props.startDate, "MMMM D, YYYY");
+    const startDate = new Date(this.props.startDate);
     const buffer =
       parseInt(this.props.rowId * 7, 10) + parseInt(this.props.gridId, 10);
     if (buffer === 0) {
-      return moment(this.props.startDate, "MMMM D, YYYY").format(
-        this.props.dateFormat
-      );
+      return startDate;
     }
-    return startDate.add(buffer, "days").format(this.props.dateFormat);
+    return add(startDate, { days: buffer });
   };
 
   handleClick = event => {
