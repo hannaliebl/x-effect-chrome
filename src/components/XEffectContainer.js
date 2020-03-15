@@ -70,7 +70,7 @@ class XEffectContainer extends Component {
     });
   };
 
-  handleNoteAdd = event => {
+  handleNoteAdd = () => {
     const hasError = FormValidation("currentNote", this.state.currentNote);
     this.setState({ noteError: hasError });
     if (!hasError) {

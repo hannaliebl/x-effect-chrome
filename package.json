@@ -10,6 +10,9 @@
     "source-map-explorer": "^1.6.0"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.19.0",
     "prettier": "^1.19.1",
     "react-scripts": "^3.3.1"
   },
@@ -18,7 +21,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
+    "format": "prettier \"src/**/*.{js,jsx,css}\" --write"
   },
   "browserslist": [
     ">0.2%",

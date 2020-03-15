@@ -36,7 +36,8 @@ HabitGridContainer.propTypes = {
   dateFormat: PropTypes.string.isRequired,
   handleNoteDelete: PropTypes.func.isRequired,
   notes: PropTypes.array.isRequired,
-  handleHabitDeleteInBuilder: PropTypes.func.isRequired
+  handleHabitDeleteInBuilder: PropTypes.func.isRequired,
+  showNoteCancel: PropTypes.bool
 };
 
 export default HabitGridContainer;
